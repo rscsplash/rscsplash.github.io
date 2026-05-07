@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Splashin</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #00BFFF;
+    --navy: #050e1f;
+    --navy2: #091828;
+    --teal: #00e5c8;
+    --splash: #38c9f5;
+    --white: #f0f8ff;
+    --muted: #7aadcc;
+    --danger: #ff4f4f;
+    --warn: #ffd166;
+  }
+
+  body {
+    background-color: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* animated water bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 80%, rgba(0,191,255,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(0,229,200,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 14vw, 8rem);
+    letter-spacing: 0.04em;
+    line-height: 0.9;
+    color: var(--white);
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero h1 .splash-word {
+    color: var(--blue);
+    display: block;
+    text-shadow: 0 0 40px rgba(0,191,255,0.4);
+  }
+
+  .hero-tagline {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .drops {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 1.5rem;
+  }
+  .drop {
+    width: 8px; height: 8px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: var(--blue);
+    animation: drip 2s ease-in-out infinite;
+  }
+  .drop:nth-child(2) { animation-delay: 0.3s; background: var(--teal); }
+  .drop:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes drip {
+    0%, 100% { transform: rotate(-45deg) translateY(0); opacity: 0.5; }
+    50% { transform: rotate(-45deg) translateY(4px); opacity: 1; }
+  }
+
+  /* OBJECTIVE BANNER */
+  .objective {
+    border: 1px solid rgba(0,191,255,0.25);
+    border-left: 4px solid var(--blue);
+    background: rgba(0,191,255,0.06);
+    border-radius: 0 12px 12px 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--white);
+  }
+
+  .objective strong { color: var(--teal); font-weight: 500; }
+
+  /* SECTION */
+  .section { margin-bottom: 2.5rem; }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0,191,255,0.3), transparent);
+  }
+
+  /* HOW TO PLAY STEPS */
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+
+  .step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: background 0.2s;
+  }
+
+  .step:hover { background: rgba(0,191,255,0.06); }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--blue);
+    line-height: 1;
+    min-width: 28px;
+    opacity: 0.7;
+  }
+
+  .step-text { font-size: 0.9rem; line-height: 1.65; color: var(--white); }
+  .step-text .sub { margin-top: 4px; color: var(--muted); font-size: 0.82rem; }
+
+  /* RULES GRID */
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 520px) { .rules-grid { grid-template-columns: 1fr; } }
+
+  .rule-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+
+  .rule-card.full { grid-column: 1 / -1; }
+
+  .rule-card-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .rule-card.no-elim .rule-card-label { color: var(--danger); }
+  .rule-card.immunity .rule-card-label { color: var(--teal); }
+  .rule-card.bounty .rule-card-label { color: var(--warn); }
+
+  .rule-card ul { list-style: none; padding: 0; }
+  .rule-card ul li {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--white);
+    padding: 3px 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .rule-card.no-elim ul li::before { content: '✕'; position: absolute; left: 0; color: var(--danger); font-size: 0.7rem; top: 5px; }
+  .rule-card.immunity ul li::before { content: '◈'; position: absolute; left: 0; color: var(--teal); font-size: 0.7rem; top: 5px; }
+  .rule-card.bounty ul li::before { content: '!'; position: absolute; left: 0; color: var(--warn); font-size: 0.75rem; font-weight: 700; top: 3px; }
+
+  .sub-note {
+    margin-top: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 0.5rem;
+  }
+
+  /* PURGE BOX */
+  .purge-box {
+    border: 1px solid rgba(255,77,77,0.35);
+    background: rgba(255,77,77,0.06);
+    border-radius: 14px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .purge-box::before {
+    content: 'PURGE';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: rgba(255,77,77,0.05);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .purge-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: var(--danger);
+    margin-bottom: 1rem;
+  }
+
+  .purge-list { list-style: none; padding: 0; }
+  .purge-list li {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--white);
+    padding-left: 1.25rem;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .purge-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: var(--danger);
+    font-size: 0.55rem;
+    top: 6px;
+  }
+
+  /* SAFE ZONES */
+  .safezone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media (max-width: 520px) { .safezone-grid { grid-template-columns: 1fr; } }
+
+  .safezone-card {
+    background: rgba(0,229,200,0.05);
+    border: 1px solid rgba(0,229,200,0.15);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    text-align: center;
+  }
+
+  .safezone-icon { font-size: 1.6rem; margin-bottom: 6px; }
+  .safezone-name { font-size: 0.88rem; font-weight: 500; color: var(--teal); }
+  .safezone-sub { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+
+  /* NOTES */
+  .notes-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .notes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .notes-list li span.dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* WIN */
+  .win-box {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border: 1px solid rgba(0,191,255,0.2);
+    border-radius: 16px;
+    background: rgba(0,191,255,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .win-box::before {
+    content: '🏆';
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .win-box h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    text-shadow: 0 0 30px rgba(0,191,255,0.3);
+  }
+
+  .win-box p { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0,191,255,0.2), transparent);
+    margin: 2.5rem 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow">Class of 2026</p>
+    <h1>Senior<span class="splash-word">Splashin'</span></h1>
+    
+    <div class="drops">
+      <div class="drop"></div>
+      <div class="drop"></div>
+      <div class="drop"></div>
+    </div>
+  </div>
+
+  <!-- OBJECTIVE -->
+  <div class="objective">
+    <strong>Objective:</strong> Eliminate your assigned target using a water gun. Once you eliminate your target, you inherit their target. <strong>Last person standing wins.</strong>
+  </div>
+
+  <!-- HOW TO PLAY -->
+  <div class="section">
+    <div class="section-title">How to Play</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Each player is secretly assigned one target.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Eliminate your target with a water gun while following all rules.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Once you eliminate your target, you inherit their target and keep playing.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Every elimination <strong>must be recorded on video</strong> to count.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">The game runs in <strong>fortnightly rounds</strong>.<div class="sub">⚠ If you do not get a kill during the fortnight, you are eliminated.</div></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-text">Avoid getting eliminated. The game ends when one player remains.</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- RULES -->
+  <div class="section">
+    <div class="section-title">Rules</div>
+    <div class="rules-grid">
+
+      <div class="rule-card no-elim">
+        <div class="rule-card-label">No Eliminations During</div>
+        <ul>
+          <li>School hours (8:45am – 3:00pm)</li>
+          <li>Work (while actively working)</li>
+          <li>While driving</li>
+        </ul>
+      </div>
+
+      <div class="rule-card immunity">
+        <div class="rule-card-label">Immunity Gear</div>
+        <ul>
+          <li>Goggles, floaties etc. grant immunity</li>
+          <li>Must be worn before attacker starts</li>
+          <li>Must be clearly visible</li>
+        </ul>
+        <div class="sub-note">Does not apply during a Purge.</div>
+      </div>
+
+      <div class="rule-card bounty full">
+        <div class="rule-card-label">⚡ Bounty</div>
+        <ul>
+          <li>If you have a bounty on your head — no goggles, no safe zones, nothing protects you.</li>
+          <li>Your only option is to not get hit.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PURGE -->
+  <div class="section">
+    <div class="section-title">Purge Rules</div>
+    <div class="purge-box">
+      <div class="purge-title">During a Purge —</div>
+      <ul class="purge-list">
+        <li>No safe zones</li>
+        <li>No immunity gear (goggles, floaties etc.)</li>
+        <li>No eliminations while driving — this rule always applies</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SAFE ZONES -->
+  <div class="section">
+    <div class="section-title">Safe Zones</div>
+    <div class="safezone-grid">
+      <div class="safezone-card">
+        <div class="safezone-icon">🏫</div>
+        <div class="safezone-name">School</div>
+        <div class="safezone-sub">Always a safe zone</div>
+      </div>
+      <div class="safezone-card">
+        <div class="safezone-icon">💼</div>
+        <div class="safezone-name">Workplaces</div>
+        <div class="safezone-sub">While at work</div>
+      </div>
+      <div class="safezone-card">
+        <div class="safezone-icon">🤝</div>
+        <div class="safezone-name">Formal Events</div>
+        <div class="safezone-sub">Weddings, funerals etc.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- NOTES -->
+  <div class="section">
+    <div class="section-title">Final Notes</div>
+    <ul class="notes-list">
+      <li><span class="dot"></span>Be respectful and don't ruin the game for others.</li>
+      <li><span class="dot"></span>Bring complaints to admin.</li>
+      <li><span class="dot"></span>Admin is not involved in the game.</li>
+      <li><span class="dot"></span>Play smart, not dangerous.</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WIN -->
+  <div class="win-box">
+    <h2>Last Player Alive Wins</h2>
+    <div style="display:inline-block; margin: 0.75rem auto 0.25rem; background: rgba(0,191,255,0.12); border: 1px solid rgba(0,191,255,0.3); border-radius: 99px; padding: 0.4rem 1.4rem;">
+      <span style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:0.1em; color:var(--teal); text-shadow: 0 0 20px rgba(0,229,200,0.4);">$200 PRIZE</span>
+    </div>
+    <p>Good luck. Stay dry. Stay sharp.</p>
+  </div>
+
+</div>
+</body>
+</html>
